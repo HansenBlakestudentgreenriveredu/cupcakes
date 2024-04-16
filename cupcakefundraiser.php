@@ -1,41 +1,50 @@
+<!--
+Blake Hansen
+SDEV328
+Cupcake Assignment
+
+need to create counter for each flavor selected called $flavorCount
+-->
+    <div class="form-container">
+    <form method="post" action="">
+        <p class="form-title">Cupcake Fundraiser</p>
+        <label for="name">Your Name</label>
+        <input name="name" placeholder="Name">
+
+        <label>Cupcake flavors:</label>
+        <input type='checkbox' name='flavor[]' value = " Grasshopper"> The Grasshopper
+        <input type='checkbox' name='flavor[]' value = " Whiskey Maple Bacon"> Whiskey Maple Bacon
+        <input type='checkbox' name='flavor[]' value = " Carrot Walnut"> Carrot Walnut
+        <input type='checkbox' name='flavor[]' value = " Salted Caramel"> Salted Caramel
+        <input type='checkbox' name='flavor[]' value = " Red Velvet"> Red Velvet
+        <input type='checkbox' name='flavor[]' value = " Lemon Drop"> Lemon Drop
+        <input type='checkbox' name='flavor[]' value = " Tiramisu"> Tiramisu
+
+        <input id="submit" name="submit" type="submit" value="Submit">
+    </form>
+    </div>
 <?php
-// Cupcake form
-        <div class="form-container">
-            <form action="newApplication.php" method="post">
-                <p class="form-title">Cupcake Fundraiser</p>
-                <label for="name">Your Name</label>
-                <input type="text" id="name" name="name" required>
 
-<label>Cupcake flavors:</label>
-<input type='checkbox' name='flavor[]'> The Grasshopper
-<input type='checkbox' name='flavor[]'> Whiskey Maple Bacon
-<input type='checkbox' name='flavor[]'> Carrot Walnut
-<input type='checkbox' name='flavor[]'> Salted Caramel Cupcake
-<input type='checkbox' name='flavor[]'> Red Velvet
-<input type='checkbox' name='flavor[]'> Lemon Drop
-<input type='checkbox' name='flavor[]'> Tiramisu
 
- <input type="submit" value="Submit">
-            </form>
-        </div>
+    // Error reporting
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
 
-$flavors = $_POST['flavor'];
-        foreach($flavors as $flavor)
-            print($flavor);
+    // Check if things filled out
+    if(!empty($_POST['name'])&&!empty($_POST['flavor'])) {
 
-        else if (!empty($_POST) && !empty($_POST["name"]) && !empty($_POST["flavor"])){
-    $name = $_POST["name"];
-    $flavor = $_POST["flavor"];
-    $form = true; // send an email
-    // Display a confirmation message
-    echo '<p>Thank you, ' . $name . ', for your order!</p>';
-    echo '<p>Order Summary: </p>';
-    echo '<p>Order Total: $3.50 </p>';
-}
-else {
-    $form = false; // dont send an email
-    // Display error message
-    echo '<p>ERROR</p>';
-    echo '<p>Incomplete form</p>';
-}
+        $name = $_POST['name'];
+
+        // Create array and loop through for count
+        $cupCakesArray = $_POST['flavor'];
+        $arrLength = count($cupCakesArray);
+        for ($count = 0; $count < $arrLength; $count++) {
+            echo $cupCakesArray[$count];
+        }
+
+        // Confirmation message
+        echo '<h2>Order Summary:</h2> <br>';
+        echo '<p>Cupcake order submitted! Thank you, ' . $name . ' for your order.</p> <br>';
+        echo '<p>Order total: ' . (3.5 * $arrLength) . '</p> <br>';
+    }
 ?>
